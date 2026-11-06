@@ -394,7 +394,7 @@
             Navegue interativamente pelo relevo e dossel florestal gerados por <b>nuvem de pontos LiDAR de alta densidade</b>. Inclui câmeras 📸 georreferenciadas na ilha e dados da dissertação.
           </div>
         </div>
-        <a href="../index.html" onclick="irParaModelo3D(event)" class="portal-btn btn-purple">
+        <a href="modelo3d.html" onclick="irParaModelo3D(event)" class="portal-btn btn-purple">
           🚀 Abrir Modelo 3D WebGL (LiDAR)
         </a>
       </div>
@@ -407,7 +407,7 @@
         <h2 id="viewingTitle">🌐 Ponto #344 — Restinga Arbórea</h2>
         <div style="display:flex; gap:10px;">
           <button class="portal-btn" style="padding:6px 14px; font-size:12px;" onclick="viewer.toggleFullscreen()">⛶ Tela Cheia</button>
-          <a href="../index.html" onclick="irParaModelo3D(event)" class="portal-btn btn-purple" style="padding:6px 14px; font-size:12px;">🗺️ Ver no Modelo 3D</a>
+          <a href="modelo3d.html" onclick="irParaModelo3D(event)" class="portal-btn btn-purple" style="padding:6px 14px; font-size:12px;">🗺️ Ver no Modelo 3D</a>
         </div>
       </div>
       <div id="panorama"></div>
@@ -1060,13 +1060,7 @@
     
     function irParaModelo3D(e) {
       if (e) e.preventDefault();
-      // Se a URL contém /360/ (online no GitHub ou servidor raiz)
-      if (window.location.pathname.includes('/360/')) {
-        window.location.href = '../index.html';
-      } else {
-        // Se o servidor local foi aberto direto dentro da pasta 360
-        window.location.href = 'modelo3d.html';
-      }
+      window.location.href = 'modelo3d.html';
     }
 
     function scrollToAlbum() {
