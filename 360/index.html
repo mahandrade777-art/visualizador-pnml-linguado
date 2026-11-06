@@ -3,179 +3,781 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Imersão Virtual e Espacial — Parque Natural Municipal do Linguado II</title>
+  <title>Acervo Digital & Imersão 360° — Parque Natural Municipal do Linguado II</title>
+  <link rel="stylesheet" href="lib/pannellum.css"/>
+  <script src="lib/pannellum.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: radial-gradient(circle at 50% 20%, #152e42 0%, #060b12 100%);
-      color: #f8fafc;
+      background: #090e17;
+      color: #f1f5f9;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
     }
-    .header {
+    a { color: inherit; text-decoration: none; }
+
+    /* Header */
+    header {
       text-align: center;
-      max-width: 720px;
-      margin-bottom: 40px;
+      padding: 36px 20px 24px 20px;
+      background: radial-gradient(circle at 50% 20%, #172a3a 0%, #090e17 80%);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
     }
-    .badge {
+    .pill-badge {
       display: inline-block;
-      background: rgba(14, 165, 233, 0.15);
-      border: 1px solid rgba(14, 165, 233, 0.35);
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.4);
       color: #38bdf8;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      padding: 6px 14px;
-      border-radius: 9999px;
-      margin-bottom: 16px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 14px;
     }
     h1 {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 800;
       color: #ffffff;
-      line-height: 1.25;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
     }
-    p.subtitle {
-      font-size: 15px;
+    p.lead {
+      font-size: 14px;
       color: #94a3b8;
+      max-width: 760px;
+      margin: 0 auto;
       line-height: 1.6;
     }
-    .grid {
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 16px;
+      width: 100%;
+    }
+
+    /* Destaques Cards */
+    .featured-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      max-width: 1020px;
-      width: 100%;
-      margin-bottom: 40px;
+      gap: 16px;
+      margin-bottom: 24px;
     }
     .card {
-      background: rgba(15, 23, 42, 0.75);
-      border: 1px solid rgba(51, 65, 85, 0.8);
-      border-radius: 16px;
-      padding: 24px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 14px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.4);
       transition: all 0.25s ease;
     }
     .card:hover {
-      transform: translateY(-4px);
       border-color: #38bdf8;
-      box-shadow: 0 16px 32px rgba(14, 165, 233, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(56, 189, 248, 0.15);
     }
     .card-tag {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
-      letter-spacing: 0.05em;
-      color: #38bdf8;
       text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #38bdf8;
       margin-bottom: 8px;
     }
-    .card-title {
-      font-size: 18px;
+    .card h3 {
+      font-size: 17px;
       font-weight: 700;
-      color: #f1f5f9;
-      margin-bottom: 10px;
-      line-height: 1.3;
+      margin-bottom: 8px;
+      color: #f8fafc;
     }
-    .card-desc {
-      font-size: 13px;
+    .card p {
+      font-size: 12.5px;
       color: #94a3b8;
-      line-height: 1.6;
-      margin-bottom: 20px;
-      flex-grow: 1;
+      line-height: 1.5;
+      margin-bottom: 16px;
     }
-    .card-btn {
-      display: block;
-      text-align: center;
-      background: #0284c7;
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #0284c7, #0369a1);
       color: #ffffff;
-      text-decoration: none;
-      padding: 10px 18px;
+      padding: 10px 16px;
       border-radius: 8px;
       font-size: 13px;
       font-weight: 600;
-      transition: background 0.2s ease;
-    }
-    .card-btn:hover {
-      background: #0369a1;
-    }
-    .card-btn.sec {
-      background: rgba(30, 41, 59, 0.9);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      color: #38bdf8;
-    }
-    .card-btn.sec:hover {
-      background: rgba(56, 189, 248, 0.15);
-    }
-    .footer {
-      text-align: center;
-      font-size: 12px;
-      color: #64748b;
-      line-height: 1.6;
-      border-top: 1px solid rgba(51, 65, 85, 0.4);
-      padding-top: 24px;
-      max-width: 800px;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
       width: 100%;
+    }
+    .btn-action:hover {
+      background: linear-gradient(135deg, #0369a1, #075985);
+    }
+    .btn-3d {
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+    }
+    .btn-3d:hover {
+      background: linear-gradient(135deg, #6d28d9, #5b21b6);
+    }
+
+    /* Master 360 Viewer Section */
+    .viewer-section {
+      background: #0f172a;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      margin-bottom: 30px;
+    }
+    .viewer-header {
+      padding: 14px 20px;
+      background: rgba(30, 41, 59, 0.8);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .viewer-header h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .viewer-header .current-title {
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+    #panorama {
+      width: 100%;
+      height: 520px;
+      background: #000;
+    }
+    @media (max-width: 768px) {
+      #panorama { height: 380px; }
+    }
+
+    /* Thumbnails strip */
+    .gallery-strip {
+      padding: 16px;
+      background: #090e17;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .gallery-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #94a3b8;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .thumbs-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+    .thumbs-scroll::-webkit-scrollbar {
+      height: 6px;
+    }
+    .thumbs-scroll::-webkit-scrollbar-thumb {
+      background: rgba(56, 189, 248, 0.35);
+      border-radius: 4px;
+    }
+    .thumb-card {
+      flex: 0 0 130px;
+      background: #1e293b;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .thumb-card:hover {
+      border-color: #38bdf8;
+      transform: translateY(-2px);
+    }
+    .thumb-card.active {
+      border-color: #38bdf8;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+    }
+    .thumb-card img {
+      width: 100%;
+      height: 65px;
+      object-fit: cover;
+      display: block;
+    }
+    .thumb-info {
+      padding: 6px;
+      font-size: 10px;
+      background: #0f172a;
+    }
+    .thumb-info .t-badge {
+      display: inline-block;
+      font-size: 9px;
+      color: #38bdf8;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .thumb-info .t-title {
+      display: block;
+      color: #f1f5f9;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .thumb-info .t-time {
+      color: #64748b;
+      font-size: 9px;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: auto;
+      padding: 24px 20px;
+      text-align: center;
+      font-size: 11px;
+      color: #64748b;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      background: #060a10;
+      line-height: 1.6;
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="badge">Acervo Digital e Tours Virtuais</div>
+
+  <!-- Header -->
+  <header>
+    <div class="pill-badge">Acervo Digital Oficial & Imersão 360°</div>
     <h1>Parque Natural Municipal do Linguado II</h1>
-    <p class="subtitle">Acesse as experiências imersivas em 360 graus, a rota tridimensional da expedição científica e a modelagem estrutural de dossel da Ilha do Linguado em Balneário Barra do Sul, Santa Catarina.</p>
+    <p class="lead">
+      Acesse as fotos esféricas em 360 graus da expedição científica, explore a floresta centenária de restinga e o manguezal, ou navegue pelo modelo tridimensional de dossel e terreno com dados RPAS-LiDAR georreferenciados.
+    </p>
+  </header>
+
+  <div class="container">
+
+    <!-- Destaques -->
+    <div class="featured-grid">
+      
+      <!-- Card Restinga -->
+      <div class="card">
+        <div>
+          <div class="card-tag">🌿 360° Imersivo • Fotolivro pág. 21</div>
+          <h3>Interior da Restinga Arbórea</h3>
+          <p>Imersão 360° no coração da floresta de restinga preservada, observando o dossel fechado, troncos centenários e bromélias do sub-bosque.</p>
+        </div>
+        <button class="btn-action" onclick="loadScene('344')">Abrir 360° da Restinga</button>
+      </div>
+
+      <!-- Card Manguezal -->
+      <div class="card">
+        <div>
+          <div class="card-tag">🦀 360° Imersivo • Fotolivro pág. 29</div>
+          <h3>Bosque de Manguezal e Maré</h3>
+          <p>Explore em 360° os esteiros estuarinos, as raízes-escora de <i>Rhizophora mangle</i> e os bosques que protegem a orla insular do PNML II.</p>
+        </div>
+        <button class="btn-action" onclick="loadScene('358')">Abrir 360° do Manguezal</button>
+      </div>
+
+      <!-- Card Modelo 3D -->
+      <div class="card">
+        <div>
+          <div class="card-tag">🗺️ Modelagem 3D WebGL • RPAS-LiDAR</div>
+          <h3>Visualizador 3D do Dossel</h3>
+          <p>Navegue pelo modelo 3D com a nuvem de pontos LiDAR, relevo digital e todos os pontos georreferenciados com símbolos de câmera 📸.</p>
+        </div>
+        <a href="../index.html" class="btn-action btn-3d">Acessar Visualizador 3D</a>
+      </div>
+
+    </div>
+
+    <!-- Master 360 Viewer -->
+    <div class="viewer-section">
+      <div class="viewer-header">
+        <h2>🌐 <span id="viewingTitle">Ponto #344 (Restinga Arbórea)</span></h2>
+        <div style="display:flex; gap:10px;">
+          <button class="btn-action" style="padding:6px 12px; font-size:12px; width:auto;" onclick="viewer.toggleFullscreen()">⛶ Tela Cheia</button>
+          <a href="../index.html" class="btn-action btn-3d" style="padding:6px 12px; font-size:12px; width:auto;">🗺️ Ver no Mapa 3D</a>
+        </div>
+      </div>
+
+      <!-- Panorama -->
+      <div id="panorama"></div>
+
+      <!-- Gallery Strip -->
+      <div class="gallery-strip">
+        <div class="gallery-title">
+          <span>📸 Acervo Completo da Expedição (27 Pontos 360°)</span>
+          <span style="font-size:11px; color:#38bdf8;">Clique em qualquer foto para carregar o 360°</span>
+        </div>
+        <div class="thumbs-scroll" id="thumbsScroll">
+        <div class="thumb-card " id="thumb-337" onclick="loadScene('337')">
+          <img src="thumbs/IMG_20260523_085747_00_337.jpg" alt="Ponto #337">
+          <div class="thumb-info">
+            <span class="t-badge">Restinga</span>
+            <span class="t-title">Ponto #337</span>
+            <span class="t-time">08:57:47</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-339" onclick="loadScene('339')">
+          <img src="thumbs/IMG_20260523_091651_00_339.jpg" alt="Ponto #339">
+          <div class="thumb-info">
+            <span class="t-badge">Restinga</span>
+            <span class="t-title">Ponto #339</span>
+            <span class="t-time">09:16:51</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-341" onclick="loadScene('341')">
+          <img src="thumbs/IMG_20260523_091947_00_341.jpg" alt="Ponto #341">
+          <div class="thumb-info">
+            <span class="t-badge">Restinga</span>
+            <span class="t-title">Ponto #341</span>
+            <span class="t-time">09:19:47</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-342" onclick="loadScene('342')">
+          <img src="thumbs/IMG_20260523_092008_00_342.jpg" alt="Ponto #342">
+          <div class="thumb-info">
+            <span class="t-badge">Restinga</span>
+            <span class="t-title">Ponto #342</span>
+            <span class="t-time">09:20:08</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-343" onclick="loadScene('343')">
+          <img src="thumbs/IMG_20260523_092138_00_343.jpg" alt="Ponto #343">
+          <div class="thumb-info">
+            <span class="t-badge">Restinga</span>
+            <span class="t-title">Ponto #343</span>
+            <span class="t-time">09:21:38</span>
+          </div>
+        </div>
+        <div class="thumb-card active" id="thumb-344" onclick="loadScene('344')">
+          <img src="thumbs/IMG_20260523_092802_00_344.jpg" alt="Ponto #344">
+          <div class="thumb-info">
+            <span class="t-badge">Restinga</span>
+            <span class="t-title">Ponto #344</span>
+            <span class="t-time">09:28:02</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-345" onclick="loadScene('345')">
+          <img src="thumbs/IMG_20260523_092943_00_345.jpg" alt="Ponto #345">
+          <div class="thumb-info">
+            <span class="t-badge">Restinga</span>
+            <span class="t-title">Ponto #345</span>
+            <span class="t-time">09:29:43</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-346" onclick="loadScene('346')">
+          <img src="thumbs/IMG_20260523_093611_00_346.jpg" alt="Ponto #346">
+          <div class="thumb-info">
+            <span class="t-badge">Restinga</span>
+            <span class="t-title">Ponto #346</span>
+            <span class="t-time">09:36:11</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-347" onclick="loadScene('347')">
+          <img src="thumbs/IMG_20260523_093630_00_347.jpg" alt="Ponto #347">
+          <div class="thumb-info">
+            <span class="t-badge">Restinga</span>
+            <span class="t-title">Ponto #347</span>
+            <span class="t-time">09:36:30</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-348" onclick="loadScene('348')">
+          <img src="thumbs/IMG_20260523_094024_00_348.jpg" alt="Ponto #348">
+          <div class="thumb-info">
+            <span class="t-badge">Restinga</span>
+            <span class="t-title">Ponto #348</span>
+            <span class="t-time">09:40:24</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-349" onclick="loadScene('349')">
+          <img src="thumbs/IMG_20260523_094102_00_349.jpg" alt="Ponto #349">
+          <div class="thumb-info">
+            <span class="t-badge">Restinga</span>
+            <span class="t-title">Ponto #349</span>
+            <span class="t-time">09:41:02</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-350" onclick="loadScene('350')">
+          <img src="thumbs/IMG_20260523_094336_00_350.jpg" alt="Ponto #350">
+          <div class="thumb-info">
+            <span class="t-badge">Restinga</span>
+            <span class="t-title">Ponto #350</span>
+            <span class="t-time">09:43:36</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-351" onclick="loadScene('351')">
+          <img src="thumbs/IMG_20260523_094408_00_351.jpg" alt="Ponto #351">
+          <div class="thumb-info">
+            <span class="t-badge">Restinga</span>
+            <span class="t-title">Ponto #351</span>
+            <span class="t-time">09:44:08</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-352" onclick="loadScene('352')">
+          <img src="thumbs/IMG_20260523_094425_00_352.jpg" alt="Ponto #352">
+          <div class="thumb-info">
+            <span class="t-badge">Restinga</span>
+            <span class="t-title">Ponto #352</span>
+            <span class="t-time">09:44:25</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-353" onclick="loadScene('353')">
+          <img src="thumbs/IMG_20260523_095147_00_353.jpg" alt="Ponto #353">
+          <div class="thumb-info">
+            <span class="t-badge">Restinga</span>
+            <span class="t-title">Ponto #353</span>
+            <span class="t-time">09:51:47</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-354" onclick="loadScene('354')">
+          <img src="thumbs/IMG_20260523_100233_00_354.jpg" alt="Ponto #354">
+          <div class="thumb-info">
+            <span class="t-badge">Manguezal</span>
+            <span class="t-title">Ponto #354</span>
+            <span class="t-time">10:02:33</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-355" onclick="loadScene('355')">
+          <img src="thumbs/IMG_20260523_111211_00_355.jpg" alt="Ponto #355">
+          <div class="thumb-info">
+            <span class="t-badge">Manguezal</span>
+            <span class="t-title">Ponto #355</span>
+            <span class="t-time">11:12:11</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-356" onclick="loadScene('356')">
+          <img src="thumbs/IMG_20260523_111228_00_356.jpg" alt="Ponto #356">
+          <div class="thumb-info">
+            <span class="t-badge">Manguezal</span>
+            <span class="t-title">Ponto #356</span>
+            <span class="t-time">11:12:28</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-357" onclick="loadScene('357')">
+          <img src="thumbs/IMG_20260523_111405_00_357.jpg" alt="Ponto #357">
+          <div class="thumb-info">
+            <span class="t-badge">Manguezal</span>
+            <span class="t-title">Ponto #357</span>
+            <span class="t-time">11:14:05</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-358" onclick="loadScene('358')">
+          <img src="thumbs/IMG_20260523_112152_00_358.jpg" alt="Ponto #358">
+          <div class="thumb-info">
+            <span class="t-badge">Manguezal</span>
+            <span class="t-title">Ponto #358</span>
+            <span class="t-time">11:21:52</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-360" onclick="loadScene('360')">
+          <img src="thumbs/IMG_20260523_112434_00_360.jpg" alt="Ponto #360">
+          <div class="thumb-info">
+            <span class="t-badge">Manguezal</span>
+            <span class="t-title">Ponto #360</span>
+            <span class="t-time">11:24:34</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-361" onclick="loadScene('361')">
+          <img src="thumbs/IMG_20260523_115545_00_361.jpg" alt="Ponto #361">
+          <div class="thumb-info">
+            <span class="t-badge">Canal</span>
+            <span class="t-title">Ponto #361</span>
+            <span class="t-time">11:55:45</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-362" onclick="loadScene('362')">
+          <img src="thumbs/IMG_20260523_115618_00_362.jpg" alt="Ponto #362">
+          <div class="thumb-info">
+            <span class="t-badge">Canal</span>
+            <span class="t-title">Ponto #362</span>
+            <span class="t-time">11:56:18</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-363" onclick="loadScene('363')">
+          <img src="thumbs/IMG_20260523_123027_00_363.jpg" alt="Ponto #363">
+          <div class="thumb-info">
+            <span class="t-badge">Canal</span>
+            <span class="t-title">Ponto #363</span>
+            <span class="t-time">12:30:27</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-364" onclick="loadScene('364')">
+          <img src="thumbs/IMG_20260523_124301_00_364.jpg" alt="Ponto #364">
+          <div class="thumb-info">
+            <span class="t-badge">Canal</span>
+            <span class="t-title">Ponto #364</span>
+            <span class="t-time">12:43:01</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-365" onclick="loadScene('365')">
+          <img src="thumbs/IMG_20260523_124416_00_365.jpg" alt="Ponto #365">
+          <div class="thumb-info">
+            <span class="t-badge">Canal</span>
+            <span class="t-title">Ponto #365</span>
+            <span class="t-time">12:44:16</span>
+          </div>
+        </div>
+        <div class="thumb-card " id="thumb-366" onclick="loadScene('366')">
+          <img src="thumbs/IMG_20260523_124441_00_366.jpg" alt="Ponto #366">
+          <div class="thumb-info">
+            <span class="t-badge">Canal</span>
+            <span class="t-title">Ponto #366</span>
+            <span class="t-time">12:44:41</span>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <div class="grid">
-    <div class="card">
-      <div>
-        <div class="card-tag">Experiência 360° • Insta360</div>
-        <div class="card-title">Interior da Restinga Arbórea</div>
-        <div class="card-desc">Gire a visão em 360 graus dentro da floresta centenária de restinga preservada na porção sul da ilha, observando o sub-bosque de bromélias e o dossel fechado.</div>
-      </div>
-      <a href="restinga.html" class="card-btn">Abrir Tour 360° da Restinga</a>
-    </div>
-
-    <div class="card">
-      <div>
-        <div class="card-tag">Experiência 360° • Theasys</div>
-        <div class="card-title">Bosque de Manguezal e Maré</div>
-        <div class="card-desc">Explore em 360 graus os canais estuarinos, as raízes-escora de mangue-vermelho e os bosques que protegem a orla do PNML II contra a erosão das marés.</div>
-      </div>
-      <a href="manguezal.html" class="card-btn">Abrir Tour 360° do Manguezal</a>
-    </div>
-
-    <div class="card">
-      <div>
-        <div class="card-tag">Trajetória 3D • Relive</div>
-        <div class="card-title">Rota da Expedição Científica</div>
-        <div class="card-desc">Acompanhe em animação 3D interativa o trajeto de navegação de barco contornando a Ilha do Linguado e os pontos de desembarque das campanhas de campo.</div>
-      </div>
-      <a href="rota.html" class="card-btn">Ver Trajetória 3D de Campo</a>
-    </div>
-
-    <div class="card">
-      <div>
-        <div class="card-tag">Modelagem 3D WebGL • RPAS-LiDAR</div>
-        <div class="card-title">Visualizador 3D do Dossel</div>
-        <div class="card-desc">Navegue interativamente pelo modelo tridimensional de nuvem de pontos LiDAR do PNML II, inspecionando a altura das copas e os estratos florestais.</div>
-      </div>
-      <a href="../index.html" class="card-btn sec">Acessar Visualizador 3D</a>
-    </div>
-  </div>
-
-  <div class="footer">
-    <strong>Parque Natural Municipal do Linguado II (PNML II)</strong> • Criado pelo Decreto Municipal nº 2.015/2024<br>
+  <!-- Footer -->
+  <footer>
+    Parque Natural Municipal do Linguado II (PNML II) • Criado pelo Decreto Municipal nº 2.015/2024<br>
     Produto Técnico-Tecnológico — Programa de Pós-Graduação em Tecnologia e Ambiente (PPGTA/IFC) • Editora Kelps (2026)<br>
-    Autor: Matheus Andrade Holowka • Orientador: Prof. Dr. Sandro Augusto Rhoden
-  </div>
+    Autor: Matheus Andrade Holowka • Orientador: Prof. Dr. Sandro Augusto Rhoden • Acervo Digital Próprio
+  </footer>
+
+  <script>
+    const scenes = {
+      "337": {
+        "title": "Ponto #337 (08:57:47)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_085747_00_337.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "339": {
+        "title": "Ponto #339 (09:16:51)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_091651_00_339.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "341": {
+        "title": "Ponto #341 (09:19:47)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_091947_00_341.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "342": {
+        "title": "Ponto #342 (09:20:08)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_092008_00_342.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "343": {
+        "title": "Ponto #343 (09:21:38)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_092138_00_343.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "344": {
+        "title": "Ponto #344 (09:28:02)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_092802_00_344.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "345": {
+        "title": "Ponto #345 (09:29:43)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_092943_00_345.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "346": {
+        "title": "Ponto #346 (09:36:11)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_093611_00_346.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "347": {
+        "title": "Ponto #347 (09:36:30)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_093630_00_347.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "348": {
+        "title": "Ponto #348 (09:40:24)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_094024_00_348.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "349": {
+        "title": "Ponto #349 (09:41:02)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_094102_00_349.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "350": {
+        "title": "Ponto #350 (09:43:36)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_094336_00_350.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "351": {
+        "title": "Ponto #351 (09:44:08)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_094408_00_351.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "352": {
+        "title": "Ponto #352 (09:44:25)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_094425_00_352.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "353": {
+        "title": "Ponto #353 (09:51:47)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_095147_00_353.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "354": {
+        "title": "Ponto #354 (10:02:33)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_100233_00_354.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "355": {
+        "title": "Ponto #355 (11:12:11)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_111211_00_355.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "356": {
+        "title": "Ponto #356 (11:12:28)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_111228_00_356.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "357": {
+        "title": "Ponto #357 (11:14:05)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_111405_00_357.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "358": {
+        "title": "Ponto #358 (11:21:52)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_112152_00_358.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "360": {
+        "title": "Ponto #360 (11:24:34)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_112434_00_360.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "361": {
+        "title": "Ponto #361 (11:55:45)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_115545_00_361.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "362": {
+        "title": "Ponto #362 (11:56:18)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_115618_00_362.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "363": {
+        "title": "Ponto #363 (12:30:27)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_123027_00_363.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "364": {
+        "title": "Ponto #364 (12:43:01)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_124301_00_364.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "365": {
+        "title": "Ponto #365 (12:44:16)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_124416_00_365.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+      "366": {
+        "title": "Ponto #366 (12:44:41)",
+        "type": "equirectangular",
+        "panorama": "panos/IMG_20260523_124441_00_366.jpg",
+        "autoLoad": true,
+        "compass": false
+      },
+    };
+    let currentId = "344";
+
+    const viewer = pannellum.viewer('panorama', {
+      "default": {
+        "firstScene": "344",
+        "author": "Matheus Andrade Holowka / Sandro / IFC",
+        "sceneFadeDuration": 600,
+        "autoRotate": -0.8,
+        "orientationOnByDefault": false
+      },
+      "scenes": scenes
+    });
+
+    function loadScene(id) {
+      currentId = id;
+      viewer.loadScene(id);
+      
+      const sc = scenes[id];
+      document.getElementById('viewingTitle').innerText = sc ? sc.title : 'Ponto #' + id;
+
+      // Update active thumb
+      document.querySelectorAll('.thumb-card').forEach(el => el.classList.remove('active'));
+      const activeEl = document.getElementById('thumb-' + id);
+      if (activeEl) {
+        activeEl.classList.add('active');
+        activeEl.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+      
+      // Scroll to viewer smoothly if clicked from cards above
+      document.getElementById('panorama').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  </script>
 </body>
 </html>
