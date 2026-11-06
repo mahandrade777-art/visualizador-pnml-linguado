@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Acervo Digital & Imersão 360° — Parque Natural Municipal do Linguado II</title>
+  <title>Acervo Digital Oficial — Parque Natural Municipal do Linguado II</title>
   <link rel="stylesheet" href="lib/pannellum.css"/>
   <script src="lib/pannellum.js"></script>
   <style>
@@ -21,9 +21,9 @@
     /* Header */
     header {
       text-align: center;
-      padding: 36px 20px 24px 20px;
-      background: radial-gradient(circle at 50% 20%, #172a3a 0%, #090e17 80%);
-      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+      padding: 36px 20px 28px 20px;
+      background: radial-gradient(circle at 50% 20%, #15293d 0%, #090e17 80%);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.25);
     }
     .pill-badge {
       display: inline-block;
@@ -34,12 +34,12 @@
       font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
-      padding: 4px 14px;
+      padding: 4px 16px;
       border-radius: 20px;
       margin-bottom: 14px;
     }
     h1 {
-      font-size: 26px;
+      font-size: 28px;
       font-weight: 800;
       color: #ffffff;
       margin-bottom: 10px;
@@ -48,101 +48,121 @@
     p.lead {
       font-size: 14px;
       color: #94a3b8;
-      max-width: 760px;
+      max-width: 800px;
       margin: 0 auto;
       line-height: 1.6;
     }
 
-    /* Container */
+    /* Main Container */
     .container {
-      max-width: 1200px;
+      max-width: 1240px;
       margin: 0 auto;
       padding: 24px 16px;
       width: 100%;
     }
 
-    /* Destaques Cards */
-    .featured-grid {
+    /* Portals Grand Banners */
+    .portals-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
     }
-    .card {
-      background: rgba(15, 23, 42, 0.7);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      border-radius: 14px;
-      padding: 20px;
+    .portal-banner {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
       transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
     }
-    .card:hover {
+    .portal-banner::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #38bdf8, #0284c7);
+    }
+    .portal-banner.portal-3d::before {
+      background: linear-gradient(90deg, #a855f7, #6366f1);
+    }
+    .portal-banner:hover {
+      transform: translateY(-3px);
       border-color: #38bdf8;
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px rgba(56, 189, 248, 0.15);
+      box-shadow: 0 16px 36px rgba(56, 189, 248, 0.2);
     }
-    .card-tag {
-      font-size: 10.5px;
+    .portal-banner.portal-3d:hover {
+      border-color: #a855f7;
+      box-shadow: 0 16px 36px rgba(168, 85, 247, 0.25);
+    }
+    .portal-tag {
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 1px;
       color: #38bdf8;
       margin-bottom: 8px;
     }
-    .card h3 {
-      font-size: 17px;
+    .portal-banner.portal-3d .portal-tag {
+      color: #c084fc;
+    }
+    .portal-title {
+      font-size: 20px;
       font-weight: 700;
-      margin-bottom: 8px;
-      color: #f8fafc;
+      color: #ffffff;
+      margin-bottom: 10px;
     }
-    .card p {
-      font-size: 12.5px;
+    .portal-desc {
+      font-size: 13px;
       color: #94a3b8;
-      line-height: 1.5;
-      margin-bottom: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
     }
-    .btn-action {
+    .portal-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       background: linear-gradient(135deg, #0284c7, #0369a1);
       color: #ffffff;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
       transition: all 0.2s;
       cursor: pointer;
       border: none;
-      width: 100%;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
     }
-    .btn-action:hover {
+    .portal-btn:hover {
       background: linear-gradient(135deg, #0369a1, #075985);
+      transform: translateY(-1px);
     }
-    .btn-3d {
-      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+    .portal-btn.btn-purple {
+      background: linear-gradient(135deg, #7c3aed, #6366f1);
+      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.4);
     }
-    .btn-3d:hover {
-      background: linear-gradient(135deg, #6d28d9, #5b21b6);
+    .portal-btn.btn-purple:hover {
+      background: linear-gradient(135deg, #6d28d9, #4f46e5);
     }
 
-    /* Master 360 Viewer Section */
-    .viewer-section {
+    /* Viewer Stage */
+    .viewer-stage {
       background: #0f172a;
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      border: 1px solid rgba(56, 189, 248, 0.35);
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-      margin-bottom: 30px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.7);
+      margin-bottom: 36px;
     }
-    .viewer-header {
+    .viewer-stage-header {
       padding: 14px 20px;
-      background: rgba(30, 41, 59, 0.8);
+      background: rgba(30, 41, 59, 0.9);
       border-bottom: 1px solid rgba(56, 189, 248, 0.2);
       display: flex;
       justify-content: space-between;
@@ -150,17 +170,13 @@
       flex-wrap: wrap;
       gap: 10px;
     }
-    .viewer-header h2 {
-      font-size: 16px;
+    .viewer-stage-header h2 {
+      font-size: 17px;
       font-weight: 700;
       color: #38bdf8;
       display: flex;
       align-items: center;
       gap: 8px;
-    }
-    .viewer-header .current-title {
-      font-size: 13px;
-      color: #cbd5e1;
     }
     #panorama {
       width: 100%;
@@ -171,84 +187,165 @@
       #panorama { height: 380px; }
     }
 
-    /* Thumbnails strip */
-    .gallery-strip {
-      padding: 16px;
-      background: #090e17;
-      border-top: 1px solid rgba(255,255,255,0.08);
+    /* Album Section */
+    .album-section {
+      margin-top: 10px;
     }
-    .gallery-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: #94a3b8;
-      margin-bottom: 10px;
+    .album-header-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-    .thumbs-scroll {
+    .album-header-bar h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #f8fafc;
       display: flex;
-      gap: 12px;
-      overflow-x: auto;
-      padding-bottom: 8px;
+      align-items: center;
+      gap: 10px;
     }
-    .thumbs-scroll::-webkit-scrollbar {
-      height: 6px;
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
     }
-    .thumbs-scroll::-webkit-scrollbar-thumb {
-      background: rgba(56, 189, 248, 0.35);
-      border-radius: 4px;
-    }
-    .thumb-card {
-      flex: 0 0 130px;
-      background: #1e293b;
-      border: 2px solid transparent;
-      border-radius: 8px;
-      overflow: hidden;
+    .filter-btn {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #94a3b8;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
     }
-    .thumb-card:hover {
+    .filter-btn:hover {
+      color: #ffffff;
       border-color: #38bdf8;
-      transform: translateY(-2px);
     }
-    .thumb-card.active {
+    .filter-btn.active {
+      background: #0284c7;
+      color: #ffffff;
       border-color: #38bdf8;
-      box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
     }
-    .thumb-card img {
+
+    /* Album Grid */
+    .album-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
+    }
+    .album-card {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .album-card:hover {
+      transform: translateY(-4px);
+      border-color: #38bdf8;
+      box-shadow: 0 10px 24px rgba(56, 189, 248, 0.2);
+    }
+    .album-card.active-card {
+      border-color: #38bdf8;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.6);
+    }
+    .album-card-img {
+      position: relative;
       width: 100%;
-      height: 65px;
-      object-fit: cover;
-      display: block;
-    }
-    .thumb-info {
-      padding: 6px;
-      font-size: 10px;
+      height: 140px;
+      overflow: hidden;
       background: #0f172a;
     }
-    .thumb-info .t-badge {
-      display: inline-block;
-      font-size: 9px;
-      color: #38bdf8;
+    .album-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .album-card:hover .album-card-img img {
+      transform: scale(1.05);
+    }
+    .album-card-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 10px;
       font-weight: 700;
+      color: #ffffff;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    .thumb-info .t-title {
-      display: block;
+    .album-card-play {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid #38bdf8;
+      color: #38bdf8;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: bold;
+    }
+    .album-card-body {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+    .album-card-title {
+      font-size: 15px;
+      font-weight: 700;
       color: #f1f5f9;
-      font-weight: 600;
-      margin-top: 2px;
+      margin-bottom: 4px;
     }
-    .thumb-info .t-time {
+    .album-card-time {
+      font-size: 11px;
       color: #64748b;
-      font-size: 9px;
+      margin-bottom: 8px;
+    }
+    .album-card-desc {
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.45;
+      margin-bottom: 12px;
+    }
+    .album-btn {
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #38bdf8;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s;
+    }
+    .album-card:hover .album-btn {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #38bdf8;
     }
 
     /* Footer */
     footer {
       margin-top: auto;
-      padding: 24px 20px;
+      padding: 28px 20px;
       text-align: center;
       font-size: 11px;
       color: #64748b;
@@ -262,485 +359,649 @@
 
   <!-- Header -->
   <header>
-    <div class="pill-badge">Acervo Digital Oficial & Imersão 360°</div>
+    <div class="pill-badge">Acervo Digital Oficial • PNML II</div>
     <h1>Parque Natural Municipal do Linguado II</h1>
     <p class="lead">
-      Acesse as fotos esféricas em 360 graus da expedição científica, explore a floresta centenária de restinga e o manguezal, ou navegue pelo modelo tridimensional de dossel e terreno com dados RPAS-LiDAR georreferenciados.
+      Portal oficial com o <b>Álbum Fotográfico Imersivo em 360 Graus</b> e o <b>Visualizador Tridimensional WebGL (RPAS-LiDAR)</b> da Ilha do Linguado em Balneário Barra do Sul, Santa Catarina.
     </p>
   </header>
 
   <div class="container">
 
-    <!-- Destaques -->
-    <div class="featured-grid">
+    <!-- Dois Portais de Acesso Principais -->
+    <div class="portals-grid">
       
-      <!-- Card Restinga -->
-      <div class="card">
+      <!-- Portal 1: Álbum 360° -->
+      <div class="portal-banner">
         <div>
-          <div class="card-tag">🌿 360° Imersivo • Fotolivro pág. 21</div>
-          <h3>Interior da Restinga Arbórea</h3>
-          <p>Imersão 360° no coração da floresta de restinga preservada, observando o dossel fechado, troncos centenários e bromélias do sub-bosque.</p>
+          <div class="portal-tag">📸 Imersão Esférica Nativa</div>
+          <div class="portal-title">Álbum de Fotos 360° da Expedição</div>
+          <div class="portal-desc">
+            Explore todos os <b>27 pontos panorâmicos em 360 graus</b> capturados no interior do parque. Navegue pela Restinga Arbórea, bosque de manguezal e bordas estuarinas com giroscópio e tela cheia.
+          </div>
         </div>
-        <button class="btn-action" onclick="loadScene('344')">Abrir 360° da Restinga</button>
+        <button class="portal-btn" onclick="scrollToAlbum()">
+          📸 Explorar Álbum 360° (27 Fotos)
+        </button>
       </div>
 
-      <!-- Card Manguezal -->
-      <div class="card">
+      <!-- Portal 2: Modelo 3D WebGL -->
+      <div class="portal-banner portal-3d">
         <div>
-          <div class="card-tag">🦀 360° Imersivo • Fotolivro pág. 29</div>
-          <h3>Bosque de Manguezal e Maré</h3>
-          <p>Explore em 360° os esteiros estuarinos, as raízes-escora de <i>Rhizophora mangle</i> e os bosques que protegem a orla insular do PNML II.</p>
+          <div class="portal-tag">🗺️ Modelagem 3D WebGL • RPAS-LiDAR</div>
+          <div class="portal-title">Modelo Tridimensional da Ilha</div>
+          <div class="portal-desc">
+            Navegue interativamente pelo relevo e dossel florestal gerados por <b>nuvem de pontos LiDAR de alta densidade</b>. Inclui câmeras 📸 georreferenciadas na ilha e dados da dissertação.
+          </div>
         </div>
-        <button class="btn-action" onclick="loadScene('358')">Abrir 360° do Manguezal</button>
-      </div>
-
-      <!-- Card Modelo 3D -->
-      <div class="card">
-        <div>
-          <div class="card-tag">🗺️ Modelagem 3D WebGL • RPAS-LiDAR</div>
-          <h3>Visualizador 3D do Dossel</h3>
-          <p>Navegue pelo modelo 3D com a nuvem de pontos LiDAR, relevo digital e todos os pontos georreferenciados com símbolos de câmera 📸.</p>
-        </div>
-        <a href="../index.html" class="btn-action btn-3d">Acessar Visualizador 3D</a>
+        <a href="../index.html" class="portal-btn btn-purple">
+          🚀 Abrir Modelo 3D WebGL (LiDAR)
+        </a>
       </div>
 
     </div>
 
-    <!-- Master 360 Viewer -->
-    <div class="viewer-section">
-      <div class="viewer-header">
-        <h2>🌐 <span id="viewingTitle">Ponto #344 (Restinga Arbórea)</span></h2>
+    <!-- Palco do Visualizador 360° -->
+    <div class="viewer-stage" id="stagePano">
+      <div class="viewer-stage-header">
+        <h2 id="viewingTitle">🌐 Ponto #344 — Restinga Arbórea</h2>
         <div style="display:flex; gap:10px;">
-          <button class="btn-action" style="padding:6px 12px; font-size:12px; width:auto;" onclick="viewer.toggleFullscreen()">⛶ Tela Cheia</button>
-          <a href="../index.html" class="btn-action btn-3d" style="padding:6px 12px; font-size:12px; width:auto;">🗺️ Ver no Mapa 3D</a>
+          <button class="portal-btn" style="padding:6px 14px; font-size:12px;" onclick="viewer.toggleFullscreen()">⛶ Tela Cheia</button>
+          <a href="../index.html" class="portal-btn btn-purple" style="padding:6px 14px; font-size:12px;">🗺️ Ver no Modelo 3D</a>
+        </div>
+      </div>
+      <div id="panorama"></div>
+    </div>
+
+    <!-- Seção do Álbum Fotográfico -->
+    <div class="album-section" id="albumSection">
+      <div class="album-header-bar">
+        <h2>📸 Álbum de Fotos 360° (27 Registros da Expedição)</h2>
+        <div class="filter-pills">
+          <button class="filter-btn active" onclick="filterAlbum('all', this)">Todas as Fotos (27)</button>
+          <button class="filter-btn" onclick="filterAlbum('Restinga', this)">🌿 Restinga Arbórea</button>
+          <button class="filter-btn" onclick="filterAlbum('Manguezal', this)">🦀 Manguezal</button>
+          <button class="filter-btn" onclick="filterAlbum('Canal', this)">🌊 Canal & Desembarque</button>
         </div>
       </div>
 
-      <!-- Panorama -->
-      <div id="panorama"></div>
+      <div class="album-grid" id="albumGrid">
 
-      <!-- Gallery Strip -->
-      <div class="gallery-strip">
-        <div class="gallery-title">
-          <span>📸 Acervo Completo da Expedição (27 Pontos 360°)</span>
-          <span style="font-size:11px; color:#38bdf8;">Clique em qualquer foto para carregar o 360°</span>
+      <div class="album-card" data-category="Canal" onclick="loadScene('337')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_085747_00_337.jpg" alt="Ponto #337" loading="lazy">
+          <span class="album-card-badge" style="background: #0284c7;">🌊 Desembarque & Canal</span>
+          <span class="album-card-play">🌐 360°</span>
         </div>
-        <div class="thumbs-scroll" id="thumbsScroll">
-        <div class="thumb-card " id="thumb-337" onclick="loadScene('337')">
-          <img src="thumbs/IMG_20260523_085747_00_337.jpg" alt="Ponto #337">
-          <div class="thumb-info">
-            <span class="t-badge">Restinga</span>
-            <span class="t-title">Ponto #337</span>
-            <span class="t-time">08:57:47</span>
-          </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #337</div>
+          <div class="album-card-time">🕒 Registro às 08:57:47</div>
+          <div class="album-card-desc">Ponto de aproximação náutica e desembarque na margem oeste do parque.</div>
+          <button class="album-btn">Entrar em 360°</button>
         </div>
-        <div class="thumb-card " id="thumb-339" onclick="loadScene('339')">
-          <img src="thumbs/IMG_20260523_091651_00_339.jpg" alt="Ponto #339">
-          <div class="thumb-info">
-            <span class="t-badge">Restinga</span>
-            <span class="t-title">Ponto #339</span>
-            <span class="t-time">09:16:51</span>
-          </div>
+      </div>
+
+      <div class="album-card" data-category="Restinga" onclick="loadScene('339')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_091651_00_339.jpg" alt="Ponto #339" loading="lazy">
+          <span class="album-card-badge" style="background: #16a34a;">🌿 Restinga Arbórea</span>
+          <span class="album-card-play">🌐 360°</span>
         </div>
-        <div class="thumb-card " id="thumb-341" onclick="loadScene('341')">
-          <img src="thumbs/IMG_20260523_091947_00_341.jpg" alt="Ponto #341">
-          <div class="thumb-info">
-            <span class="t-badge">Restinga</span>
-            <span class="t-title">Ponto #341</span>
-            <span class="t-time">09:19:47</span>
-          </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #339</div>
+          <div class="album-card-time">🕒 Registro às 09:16:51</div>
+          <div class="album-card-desc">Interior do maciço florestal preservado com dossel denso e sub-bosque de bromélias.</div>
+          <button class="album-btn">Entrar em 360°</button>
         </div>
-        <div class="thumb-card " id="thumb-342" onclick="loadScene('342')">
-          <img src="thumbs/IMG_20260523_092008_00_342.jpg" alt="Ponto #342">
-          <div class="thumb-info">
-            <span class="t-badge">Restinga</span>
-            <span class="t-title">Ponto #342</span>
-            <span class="t-time">09:20:08</span>
-          </div>
+      </div>
+
+      <div class="album-card" data-category="Restinga" onclick="loadScene('341')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_091947_00_341.jpg" alt="Ponto #341" loading="lazy">
+          <span class="album-card-badge" style="background: #16a34a;">🌿 Restinga Arbórea</span>
+          <span class="album-card-play">🌐 360°</span>
         </div>
-        <div class="thumb-card " id="thumb-343" onclick="loadScene('343')">
-          <img src="thumbs/IMG_20260523_092138_00_343.jpg" alt="Ponto #343">
-          <div class="thumb-info">
-            <span class="t-badge">Restinga</span>
-            <span class="t-title">Ponto #343</span>
-            <span class="t-time">09:21:38</span>
-          </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #341</div>
+          <div class="album-card-time">🕒 Registro às 09:19:47</div>
+          <div class="album-card-desc">Interior do maciço florestal preservado com dossel denso e sub-bosque de bromélias.</div>
+          <button class="album-btn">Entrar em 360°</button>
         </div>
-        <div class="thumb-card active" id="thumb-344" onclick="loadScene('344')">
-          <img src="thumbs/IMG_20260523_092802_00_344.jpg" alt="Ponto #344">
-          <div class="thumb-info">
-            <span class="t-badge">Restinga</span>
-            <span class="t-title">Ponto #344</span>
-            <span class="t-time">09:28:02</span>
-          </div>
+      </div>
+
+      <div class="album-card" data-category="Restinga" onclick="loadScene('342')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_092008_00_342.jpg" alt="Ponto #342" loading="lazy">
+          <span class="album-card-badge" style="background: #16a34a;">🌿 Restinga Arbórea</span>
+          <span class="album-card-play">🌐 360°</span>
         </div>
-        <div class="thumb-card " id="thumb-345" onclick="loadScene('345')">
-          <img src="thumbs/IMG_20260523_092943_00_345.jpg" alt="Ponto #345">
-          <div class="thumb-info">
-            <span class="t-badge">Restinga</span>
-            <span class="t-title">Ponto #345</span>
-            <span class="t-time">09:29:43</span>
-          </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #342</div>
+          <div class="album-card-time">🕒 Registro às 09:20:08</div>
+          <div class="album-card-desc">Interior do maciço florestal preservado com dossel denso e sub-bosque de bromélias.</div>
+          <button class="album-btn">Entrar em 360°</button>
         </div>
-        <div class="thumb-card " id="thumb-346" onclick="loadScene('346')">
-          <img src="thumbs/IMG_20260523_093611_00_346.jpg" alt="Ponto #346">
-          <div class="thumb-info">
-            <span class="t-badge">Restinga</span>
-            <span class="t-title">Ponto #346</span>
-            <span class="t-time">09:36:11</span>
-          </div>
+      </div>
+
+      <div class="album-card" data-category="Restinga" onclick="loadScene('343')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_092138_00_343.jpg" alt="Ponto #343" loading="lazy">
+          <span class="album-card-badge" style="background: #16a34a;">🌿 Restinga Arbórea</span>
+          <span class="album-card-play">🌐 360°</span>
         </div>
-        <div class="thumb-card " id="thumb-347" onclick="loadScene('347')">
-          <img src="thumbs/IMG_20260523_093630_00_347.jpg" alt="Ponto #347">
-          <div class="thumb-info">
-            <span class="t-badge">Restinga</span>
-            <span class="t-title">Ponto #347</span>
-            <span class="t-time">09:36:30</span>
-          </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #343</div>
+          <div class="album-card-time">🕒 Registro às 09:21:38</div>
+          <div class="album-card-desc">Interior do maciço florestal preservado com dossel denso e sub-bosque de bromélias.</div>
+          <button class="album-btn">Entrar em 360°</button>
         </div>
-        <div class="thumb-card " id="thumb-348" onclick="loadScene('348')">
-          <img src="thumbs/IMG_20260523_094024_00_348.jpg" alt="Ponto #348">
-          <div class="thumb-info">
-            <span class="t-badge">Restinga</span>
-            <span class="t-title">Ponto #348</span>
-            <span class="t-time">09:40:24</span>
-          </div>
+      </div>
+
+      <div class="album-card" data-category="Restinga" onclick="loadScene('344')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_092802_00_344.jpg" alt="Ponto #344" loading="lazy">
+          <span class="album-card-badge" style="background: #16a34a;">🌿 Restinga Arbórea</span>
+          <span class="album-card-play">🌐 360°</span>
         </div>
-        <div class="thumb-card " id="thumb-349" onclick="loadScene('349')">
-          <img src="thumbs/IMG_20260523_094102_00_349.jpg" alt="Ponto #349">
-          <div class="thumb-info">
-            <span class="t-badge">Restinga</span>
-            <span class="t-title">Ponto #349</span>
-            <span class="t-time">09:41:02</span>
-          </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #344</div>
+          <div class="album-card-time">🕒 Registro às 09:28:02</div>
+          <div class="album-card-desc">Interior do maciço florestal preservado com dossel denso e sub-bosque de bromélias.</div>
+          <button class="album-btn">Entrar em 360°</button>
         </div>
-        <div class="thumb-card " id="thumb-350" onclick="loadScene('350')">
-          <img src="thumbs/IMG_20260523_094336_00_350.jpg" alt="Ponto #350">
-          <div class="thumb-info">
-            <span class="t-badge">Restinga</span>
-            <span class="t-title">Ponto #350</span>
-            <span class="t-time">09:43:36</span>
-          </div>
+      </div>
+
+      <div class="album-card" data-category="Restinga" onclick="loadScene('345')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_092943_00_345.jpg" alt="Ponto #345" loading="lazy">
+          <span class="album-card-badge" style="background: #16a34a;">🌿 Restinga Arbórea</span>
+          <span class="album-card-play">🌐 360°</span>
         </div>
-        <div class="thumb-card " id="thumb-351" onclick="loadScene('351')">
-          <img src="thumbs/IMG_20260523_094408_00_351.jpg" alt="Ponto #351">
-          <div class="thumb-info">
-            <span class="t-badge">Restinga</span>
-            <span class="t-title">Ponto #351</span>
-            <span class="t-time">09:44:08</span>
-          </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #345</div>
+          <div class="album-card-time">🕒 Registro às 09:29:43</div>
+          <div class="album-card-desc">Interior do maciço florestal preservado com dossel denso e sub-bosque de bromélias.</div>
+          <button class="album-btn">Entrar em 360°</button>
         </div>
-        <div class="thumb-card " id="thumb-352" onclick="loadScene('352')">
-          <img src="thumbs/IMG_20260523_094425_00_352.jpg" alt="Ponto #352">
-          <div class="thumb-info">
-            <span class="t-badge">Restinga</span>
-            <span class="t-title">Ponto #352</span>
-            <span class="t-time">09:44:25</span>
-          </div>
+      </div>
+
+      <div class="album-card" data-category="Restinga" onclick="loadScene('346')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_093611_00_346.jpg" alt="Ponto #346" loading="lazy">
+          <span class="album-card-badge" style="background: #16a34a;">🌿 Restinga Arbórea</span>
+          <span class="album-card-play">🌐 360°</span>
         </div>
-        <div class="thumb-card " id="thumb-353" onclick="loadScene('353')">
-          <img src="thumbs/IMG_20260523_095147_00_353.jpg" alt="Ponto #353">
-          <div class="thumb-info">
-            <span class="t-badge">Restinga</span>
-            <span class="t-title">Ponto #353</span>
-            <span class="t-time">09:51:47</span>
-          </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #346</div>
+          <div class="album-card-time">🕒 Registro às 09:36:11</div>
+          <div class="album-card-desc">Interior do maciço florestal preservado com dossel denso e sub-bosque de bromélias.</div>
+          <button class="album-btn">Entrar em 360°</button>
         </div>
-        <div class="thumb-card " id="thumb-354" onclick="loadScene('354')">
-          <img src="thumbs/IMG_20260523_100233_00_354.jpg" alt="Ponto #354">
-          <div class="thumb-info">
-            <span class="t-badge">Manguezal</span>
-            <span class="t-title">Ponto #354</span>
-            <span class="t-time">10:02:33</span>
-          </div>
+      </div>
+
+      <div class="album-card" data-category="Restinga" onclick="loadScene('347')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_093630_00_347.jpg" alt="Ponto #347" loading="lazy">
+          <span class="album-card-badge" style="background: #16a34a;">🌿 Restinga Arbórea</span>
+          <span class="album-card-play">🌐 360°</span>
         </div>
-        <div class="thumb-card " id="thumb-355" onclick="loadScene('355')">
-          <img src="thumbs/IMG_20260523_111211_00_355.jpg" alt="Ponto #355">
-          <div class="thumb-info">
-            <span class="t-badge">Manguezal</span>
-            <span class="t-title">Ponto #355</span>
-            <span class="t-time">11:12:11</span>
-          </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #347</div>
+          <div class="album-card-time">🕒 Registro às 09:36:30</div>
+          <div class="album-card-desc">Interior do maciço florestal preservado com dossel denso e sub-bosque de bromélias.</div>
+          <button class="album-btn">Entrar em 360°</button>
         </div>
-        <div class="thumb-card " id="thumb-356" onclick="loadScene('356')">
-          <img src="thumbs/IMG_20260523_111228_00_356.jpg" alt="Ponto #356">
-          <div class="thumb-info">
-            <span class="t-badge">Manguezal</span>
-            <span class="t-title">Ponto #356</span>
-            <span class="t-time">11:12:28</span>
-          </div>
+      </div>
+
+      <div class="album-card" data-category="Restinga" onclick="loadScene('348')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_094024_00_348.jpg" alt="Ponto #348" loading="lazy">
+          <span class="album-card-badge" style="background: #16a34a;">🌿 Restinga Arbórea</span>
+          <span class="album-card-play">🌐 360°</span>
         </div>
-        <div class="thumb-card " id="thumb-357" onclick="loadScene('357')">
-          <img src="thumbs/IMG_20260523_111405_00_357.jpg" alt="Ponto #357">
-          <div class="thumb-info">
-            <span class="t-badge">Manguezal</span>
-            <span class="t-title">Ponto #357</span>
-            <span class="t-time">11:14:05</span>
-          </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #348</div>
+          <div class="album-card-time">🕒 Registro às 09:40:24</div>
+          <div class="album-card-desc">Interior do maciço florestal preservado com dossel denso e sub-bosque de bromélias.</div>
+          <button class="album-btn">Entrar em 360°</button>
         </div>
-        <div class="thumb-card " id="thumb-358" onclick="loadScene('358')">
-          <img src="thumbs/IMG_20260523_112152_00_358.jpg" alt="Ponto #358">
-          <div class="thumb-info">
-            <span class="t-badge">Manguezal</span>
-            <span class="t-title">Ponto #358</span>
-            <span class="t-time">11:21:52</span>
-          </div>
+      </div>
+
+      <div class="album-card" data-category="Restinga" onclick="loadScene('349')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_094102_00_349.jpg" alt="Ponto #349" loading="lazy">
+          <span class="album-card-badge" style="background: #16a34a;">🌿 Restinga Arbórea</span>
+          <span class="album-card-play">🌐 360°</span>
         </div>
-        <div class="thumb-card " id="thumb-360" onclick="loadScene('360')">
-          <img src="thumbs/IMG_20260523_112434_00_360.jpg" alt="Ponto #360">
-          <div class="thumb-info">
-            <span class="t-badge">Manguezal</span>
-            <span class="t-title">Ponto #360</span>
-            <span class="t-time">11:24:34</span>
-          </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #349</div>
+          <div class="album-card-time">🕒 Registro às 09:41:02</div>
+          <div class="album-card-desc">Interior do maciço florestal preservado com dossel denso e sub-bosque de bromélias.</div>
+          <button class="album-btn">Entrar em 360°</button>
         </div>
-        <div class="thumb-card " id="thumb-361" onclick="loadScene('361')">
-          <img src="thumbs/IMG_20260523_115545_00_361.jpg" alt="Ponto #361">
-          <div class="thumb-info">
-            <span class="t-badge">Canal</span>
-            <span class="t-title">Ponto #361</span>
-            <span class="t-time">11:55:45</span>
-          </div>
+      </div>
+
+      <div class="album-card" data-category="Restinga" onclick="loadScene('350')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_094336_00_350.jpg" alt="Ponto #350" loading="lazy">
+          <span class="album-card-badge" style="background: #16a34a;">🌿 Restinga Arbórea</span>
+          <span class="album-card-play">🌐 360°</span>
         </div>
-        <div class="thumb-card " id="thumb-362" onclick="loadScene('362')">
-          <img src="thumbs/IMG_20260523_115618_00_362.jpg" alt="Ponto #362">
-          <div class="thumb-info">
-            <span class="t-badge">Canal</span>
-            <span class="t-title">Ponto #362</span>
-            <span class="t-time">11:56:18</span>
-          </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #350</div>
+          <div class="album-card-time">🕒 Registro às 09:43:36</div>
+          <div class="album-card-desc">Interior do maciço florestal preservado com dossel denso e sub-bosque de bromélias.</div>
+          <button class="album-btn">Entrar em 360°</button>
         </div>
-        <div class="thumb-card " id="thumb-363" onclick="loadScene('363')">
-          <img src="thumbs/IMG_20260523_123027_00_363.jpg" alt="Ponto #363">
-          <div class="thumb-info">
-            <span class="t-badge">Canal</span>
-            <span class="t-title">Ponto #363</span>
-            <span class="t-time">12:30:27</span>
-          </div>
+      </div>
+
+      <div class="album-card" data-category="Restinga" onclick="loadScene('351')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_094408_00_351.jpg" alt="Ponto #351" loading="lazy">
+          <span class="album-card-badge" style="background: #16a34a;">🌿 Restinga Arbórea</span>
+          <span class="album-card-play">🌐 360°</span>
         </div>
-        <div class="thumb-card " id="thumb-364" onclick="loadScene('364')">
-          <img src="thumbs/IMG_20260523_124301_00_364.jpg" alt="Ponto #364">
-          <div class="thumb-info">
-            <span class="t-badge">Canal</span>
-            <span class="t-title">Ponto #364</span>
-            <span class="t-time">12:43:01</span>
-          </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #351</div>
+          <div class="album-card-time">🕒 Registro às 09:44:08</div>
+          <div class="album-card-desc">Interior do maciço florestal preservado com dossel denso e sub-bosque de bromélias.</div>
+          <button class="album-btn">Entrar em 360°</button>
         </div>
-        <div class="thumb-card " id="thumb-365" onclick="loadScene('365')">
-          <img src="thumbs/IMG_20260523_124416_00_365.jpg" alt="Ponto #365">
-          <div class="thumb-info">
-            <span class="t-badge">Canal</span>
-            <span class="t-title">Ponto #365</span>
-            <span class="t-time">12:44:16</span>
-          </div>
+      </div>
+
+      <div class="album-card" data-category="Restinga" onclick="loadScene('352')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_094425_00_352.jpg" alt="Ponto #352" loading="lazy">
+          <span class="album-card-badge" style="background: #16a34a;">🌿 Restinga Arbórea</span>
+          <span class="album-card-play">🌐 360°</span>
         </div>
-        <div class="thumb-card " id="thumb-366" onclick="loadScene('366')">
-          <img src="thumbs/IMG_20260523_124441_00_366.jpg" alt="Ponto #366">
-          <div class="thumb-info">
-            <span class="t-badge">Canal</span>
-            <span class="t-title">Ponto #366</span>
-            <span class="t-time">12:44:41</span>
-          </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #352</div>
+          <div class="album-card-time">🕒 Registro às 09:44:25</div>
+          <div class="album-card-desc">Interior do maciço florestal preservado com dossel denso e sub-bosque de bromélias.</div>
+          <button class="album-btn">Entrar em 360°</button>
         </div>
+      </div>
+
+      <div class="album-card" data-category="Restinga" onclick="loadScene('353')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_095147_00_353.jpg" alt="Ponto #353" loading="lazy">
+          <span class="album-card-badge" style="background: #16a34a;">🌿 Restinga Arbórea</span>
+          <span class="album-card-play">🌐 360°</span>
         </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #353</div>
+          <div class="album-card-time">🕒 Registro às 09:51:47</div>
+          <div class="album-card-desc">Interior do maciço florestal preservado com dossel denso e sub-bosque de bromélias.</div>
+          <button class="album-btn">Entrar em 360°</button>
+        </div>
+      </div>
+
+      <div class="album-card" data-category="Manguezal" onclick="loadScene('354')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_100233_00_354.jpg" alt="Ponto #354" loading="lazy">
+          <span class="album-card-badge" style="background: #ea580c;">🦀 Bosque de Manguezal</span>
+          <span class="album-card-play">🌐 360°</span>
+        </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #354</div>
+          <div class="album-card-time">🕒 Registro às 10:02:33</div>
+          <div class="album-card-desc">Bosque denso de mangue-vermelho e mangue-preto com canais de maré estuarinos.</div>
+          <button class="album-btn">Entrar em 360°</button>
+        </div>
+      </div>
+
+      <div class="album-card" data-category="Manguezal" onclick="loadScene('355')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_111211_00_355.jpg" alt="Ponto #355" loading="lazy">
+          <span class="album-card-badge" style="background: #ea580c;">🦀 Bosque de Manguezal</span>
+          <span class="album-card-play">🌐 360°</span>
+        </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #355</div>
+          <div class="album-card-time">🕒 Registro às 11:12:11</div>
+          <div class="album-card-desc">Bosque denso de mangue-vermelho e mangue-preto com canais de maré estuarinos.</div>
+          <button class="album-btn">Entrar em 360°</button>
+        </div>
+      </div>
+
+      <div class="album-card" data-category="Manguezal" onclick="loadScene('356')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_111228_00_356.jpg" alt="Ponto #356" loading="lazy">
+          <span class="album-card-badge" style="background: #ea580c;">🦀 Bosque de Manguezal</span>
+          <span class="album-card-play">🌐 360°</span>
+        </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #356</div>
+          <div class="album-card-time">🕒 Registro às 11:12:28</div>
+          <div class="album-card-desc">Bosque denso de mangue-vermelho e mangue-preto com canais de maré estuarinos.</div>
+          <button class="album-btn">Entrar em 360°</button>
+        </div>
+      </div>
+
+      <div class="album-card" data-category="Manguezal" onclick="loadScene('357')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_111405_00_357.jpg" alt="Ponto #357" loading="lazy">
+          <span class="album-card-badge" style="background: #ea580c;">🦀 Bosque de Manguezal</span>
+          <span class="album-card-play">🌐 360°</span>
+        </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #357</div>
+          <div class="album-card-time">🕒 Registro às 11:14:05</div>
+          <div class="album-card-desc">Bosque denso de mangue-vermelho e mangue-preto com canais de maré estuarinos.</div>
+          <button class="album-btn">Entrar em 360°</button>
+        </div>
+      </div>
+
+      <div class="album-card" data-category="Manguezal" onclick="loadScene('358')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_112152_00_358.jpg" alt="Ponto #358" loading="lazy">
+          <span class="album-card-badge" style="background: #ea580c;">🦀 Bosque de Manguezal</span>
+          <span class="album-card-play">🌐 360°</span>
+        </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #358</div>
+          <div class="album-card-time">🕒 Registro às 11:21:52</div>
+          <div class="album-card-desc">Bosque denso de mangue-vermelho e mangue-preto com canais de maré estuarinos.</div>
+          <button class="album-btn">Entrar em 360°</button>
+        </div>
+      </div>
+
+      <div class="album-card" data-category="Manguezal" onclick="loadScene('360')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_112434_00_360.jpg" alt="Ponto #360" loading="lazy">
+          <span class="album-card-badge" style="background: #ea580c;">🦀 Bosque de Manguezal</span>
+          <span class="album-card-play">🌐 360°</span>
+        </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #360</div>
+          <div class="album-card-time">🕒 Registro às 11:24:34</div>
+          <div class="album-card-desc">Bosque denso de mangue-vermelho e mangue-preto com canais de maré estuarinos.</div>
+          <button class="album-btn">Entrar em 360°</button>
+        </div>
+      </div>
+
+      <div class="album-card" data-category="Canal" onclick="loadScene('361')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_115545_00_361.jpg" alt="Ponto #361" loading="lazy">
+          <span class="album-card-badge" style="background: #0284c7;">⛵ Orla & Canal</span>
+          <span class="album-card-play">🌐 360°</span>
+        </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #361</div>
+          <div class="album-card-time">🕒 Registro às 11:55:45</div>
+          <div class="album-card-desc">Borda estuarina do canal e contorno insular do Parque Natural Municipal do Linguado II.</div>
+          <button class="album-btn">Entrar em 360°</button>
+        </div>
+      </div>
+
+      <div class="album-card" data-category="Canal" onclick="loadScene('362')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_115618_00_362.jpg" alt="Ponto #362" loading="lazy">
+          <span class="album-card-badge" style="background: #0284c7;">⛵ Orla & Canal</span>
+          <span class="album-card-play">🌐 360°</span>
+        </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #362</div>
+          <div class="album-card-time">🕒 Registro às 11:56:18</div>
+          <div class="album-card-desc">Borda estuarina do canal e contorno insular do Parque Natural Municipal do Linguado II.</div>
+          <button class="album-btn">Entrar em 360°</button>
+        </div>
+      </div>
+
+      <div class="album-card" data-category="Canal" onclick="loadScene('363')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_123027_00_363.jpg" alt="Ponto #363" loading="lazy">
+          <span class="album-card-badge" style="background: #0284c7;">⛵ Orla & Canal</span>
+          <span class="album-card-play">🌐 360°</span>
+        </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #363</div>
+          <div class="album-card-time">🕒 Registro às 12:30:27</div>
+          <div class="album-card-desc">Borda estuarina do canal e contorno insular do Parque Natural Municipal do Linguado II.</div>
+          <button class="album-btn">Entrar em 360°</button>
+        </div>
+      </div>
+
+      <div class="album-card" data-category="Canal" onclick="loadScene('364')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_124301_00_364.jpg" alt="Ponto #364" loading="lazy">
+          <span class="album-card-badge" style="background: #0284c7;">⛵ Orla & Canal</span>
+          <span class="album-card-play">🌐 360°</span>
+        </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #364</div>
+          <div class="album-card-time">🕒 Registro às 12:43:01</div>
+          <div class="album-card-desc">Borda estuarina do canal e contorno insular do Parque Natural Municipal do Linguado II.</div>
+          <button class="album-btn">Entrar em 360°</button>
+        </div>
+      </div>
+
+      <div class="album-card" data-category="Canal" onclick="loadScene('365')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_124416_00_365.jpg" alt="Ponto #365" loading="lazy">
+          <span class="album-card-badge" style="background: #0284c7;">⛵ Orla & Canal</span>
+          <span class="album-card-play">🌐 360°</span>
+        </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #365</div>
+          <div class="album-card-time">🕒 Registro às 12:44:16</div>
+          <div class="album-card-desc">Borda estuarina do canal e contorno insular do Parque Natural Municipal do Linguado II.</div>
+          <button class="album-btn">Entrar em 360°</button>
+        </div>
+      </div>
+
+      <div class="album-card" data-category="Canal" onclick="loadScene('366')">
+        <div class="album-card-img">
+          <img src="thumbs/IMG_20260523_124441_00_366.jpg" alt="Ponto #366" loading="lazy">
+          <span class="album-card-badge" style="background: #0284c7;">⛵ Orla & Canal</span>
+          <span class="album-card-play">🌐 360°</span>
+        </div>
+        <div class="album-card-body">
+          <div class="album-card-title">Ponto #366</div>
+          <div class="album-card-time">🕒 Registro às 12:44:41</div>
+          <div class="album-card-desc">Borda estuarina do canal e contorno insular do Parque Natural Municipal do Linguado II.</div>
+          <button class="album-btn">Entrar em 360°</button>
+        </div>
+      </div>
       </div>
     </div>
 
   </div>
 
-  <!-- Footer -->
+  <!-- Footer Oficial -->
   <footer>
     Parque Natural Municipal do Linguado II (PNML II) • Criado pelo Decreto Municipal nº 2.015/2024<br>
     Produto Técnico-Tecnológico — Programa de Pós-Graduação em Tecnologia e Ambiente (PPGTA/IFC) • Editora Kelps (2026)<br>
-    Autor: Matheus Andrade Holowka • Orientador: Prof. Dr. Sandro Augusto Rhoden • Acervo Digital Próprio
+    Autor: Matheus Andrade Holowka • Orientador: Prof. Dr. Sandro Augusto Rhoden • Acervo Digital Próprio e Perpétuo
   </footer>
 
   <script>
     const scenes = {
       "337": {
-        "title": "Ponto #337 (08:57:47)",
+        "title": "🌊 Ponto #337 — Desembarque & Canal (08:57:47)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_085747_00_337.jpg",
         "autoLoad": true,
         "compass": false
       },
       "339": {
-        "title": "Ponto #339 (09:16:51)",
+        "title": "🌿 Ponto #339 — Restinga Arbórea (09:16:51)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_091651_00_339.jpg",
         "autoLoad": true,
         "compass": false
       },
       "341": {
-        "title": "Ponto #341 (09:19:47)",
+        "title": "🌿 Ponto #341 — Restinga Arbórea (09:19:47)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_091947_00_341.jpg",
         "autoLoad": true,
         "compass": false
       },
       "342": {
-        "title": "Ponto #342 (09:20:08)",
+        "title": "🌿 Ponto #342 — Restinga Arbórea (09:20:08)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_092008_00_342.jpg",
         "autoLoad": true,
         "compass": false
       },
       "343": {
-        "title": "Ponto #343 (09:21:38)",
+        "title": "🌿 Ponto #343 — Restinga Arbórea (09:21:38)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_092138_00_343.jpg",
         "autoLoad": true,
         "compass": false
       },
       "344": {
-        "title": "Ponto #344 (09:28:02)",
+        "title": "🌿 Ponto #344 — Restinga Arbórea (09:28:02)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_092802_00_344.jpg",
         "autoLoad": true,
         "compass": false
       },
       "345": {
-        "title": "Ponto #345 (09:29:43)",
+        "title": "🌿 Ponto #345 — Restinga Arbórea (09:29:43)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_092943_00_345.jpg",
         "autoLoad": true,
         "compass": false
       },
       "346": {
-        "title": "Ponto #346 (09:36:11)",
+        "title": "🌿 Ponto #346 — Restinga Arbórea (09:36:11)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_093611_00_346.jpg",
         "autoLoad": true,
         "compass": false
       },
       "347": {
-        "title": "Ponto #347 (09:36:30)",
+        "title": "🌿 Ponto #347 — Restinga Arbórea (09:36:30)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_093630_00_347.jpg",
         "autoLoad": true,
         "compass": false
       },
       "348": {
-        "title": "Ponto #348 (09:40:24)",
+        "title": "🌿 Ponto #348 — Restinga Arbórea (09:40:24)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_094024_00_348.jpg",
         "autoLoad": true,
         "compass": false
       },
       "349": {
-        "title": "Ponto #349 (09:41:02)",
+        "title": "🌿 Ponto #349 — Restinga Arbórea (09:41:02)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_094102_00_349.jpg",
         "autoLoad": true,
         "compass": false
       },
       "350": {
-        "title": "Ponto #350 (09:43:36)",
+        "title": "🌿 Ponto #350 — Restinga Arbórea (09:43:36)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_094336_00_350.jpg",
         "autoLoad": true,
         "compass": false
       },
       "351": {
-        "title": "Ponto #351 (09:44:08)",
+        "title": "🌿 Ponto #351 — Restinga Arbórea (09:44:08)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_094408_00_351.jpg",
         "autoLoad": true,
         "compass": false
       },
       "352": {
-        "title": "Ponto #352 (09:44:25)",
+        "title": "🌿 Ponto #352 — Restinga Arbórea (09:44:25)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_094425_00_352.jpg",
         "autoLoad": true,
         "compass": false
       },
       "353": {
-        "title": "Ponto #353 (09:51:47)",
+        "title": "🌿 Ponto #353 — Restinga Arbórea (09:51:47)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_095147_00_353.jpg",
         "autoLoad": true,
         "compass": false
       },
       "354": {
-        "title": "Ponto #354 (10:02:33)",
+        "title": "🦀 Ponto #354 — Bosque de Manguezal (10:02:33)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_100233_00_354.jpg",
         "autoLoad": true,
         "compass": false
       },
       "355": {
-        "title": "Ponto #355 (11:12:11)",
+        "title": "🦀 Ponto #355 — Bosque de Manguezal (11:12:11)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_111211_00_355.jpg",
         "autoLoad": true,
         "compass": false
       },
       "356": {
-        "title": "Ponto #356 (11:12:28)",
+        "title": "🦀 Ponto #356 — Bosque de Manguezal (11:12:28)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_111228_00_356.jpg",
         "autoLoad": true,
         "compass": false
       },
       "357": {
-        "title": "Ponto #357 (11:14:05)",
+        "title": "🦀 Ponto #357 — Bosque de Manguezal (11:14:05)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_111405_00_357.jpg",
         "autoLoad": true,
         "compass": false
       },
       "358": {
-        "title": "Ponto #358 (11:21:52)",
+        "title": "🦀 Ponto #358 — Bosque de Manguezal (11:21:52)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_112152_00_358.jpg",
         "autoLoad": true,
         "compass": false
       },
       "360": {
-        "title": "Ponto #360 (11:24:34)",
+        "title": "🦀 Ponto #360 — Bosque de Manguezal (11:24:34)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_112434_00_360.jpg",
         "autoLoad": true,
         "compass": false
       },
       "361": {
-        "title": "Ponto #361 (11:55:45)",
+        "title": "⛵ Ponto #361 — Orla & Canal (11:55:45)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_115545_00_361.jpg",
         "autoLoad": true,
         "compass": false
       },
       "362": {
-        "title": "Ponto #362 (11:56:18)",
+        "title": "⛵ Ponto #362 — Orla & Canal (11:56:18)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_115618_00_362.jpg",
         "autoLoad": true,
         "compass": false
       },
       "363": {
-        "title": "Ponto #363 (12:30:27)",
+        "title": "⛵ Ponto #363 — Orla & Canal (12:30:27)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_123027_00_363.jpg",
         "autoLoad": true,
         "compass": false
       },
       "364": {
-        "title": "Ponto #364 (12:43:01)",
+        "title": "⛵ Ponto #364 — Orla & Canal (12:43:01)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_124301_00_364.jpg",
         "autoLoad": true,
         "compass": false
       },
       "365": {
-        "title": "Ponto #365 (12:44:16)",
+        "title": "⛵ Ponto #365 — Orla & Canal (12:44:16)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_124416_00_365.jpg",
         "autoLoad": true,
         "compass": false
       },
       "366": {
-        "title": "Ponto #366 (12:44:41)",
+        "title": "⛵ Ponto #366 — Orla & Canal (12:44:41)",
         "type": "equirectangular",
         "panorama": "panos/IMG_20260523_124441_00_366.jpg",
         "autoLoad": true,
@@ -765,18 +1026,39 @@
       viewer.loadScene(id);
       
       const sc = scenes[id];
-      document.getElementById('viewingTitle').innerText = sc ? sc.title : 'Ponto #' + id;
-
-      // Update active thumb
-      document.querySelectorAll('.thumb-card').forEach(el => el.classList.remove('active'));
-      const activeEl = document.getElementById('thumb-' + id);
-      if (activeEl) {
-        activeEl.classList.add('active');
-        activeEl.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      if (sc) {
+        document.getElementById('viewingTitle').innerText = sc.title;
       }
-      
-      // Scroll to viewer smoothly if clicked from cards above
-      document.getElementById('panorama').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Highlight active card
+      document.querySelectorAll('.album-card').forEach(c => c.classList.remove('active-card'));
+      const cards = document.querySelectorAll('.album-card');
+      cards.forEach(c => {
+        if (c.innerHTML.includes('Ponto #' + id)) {
+          c.classList.add('active-card');
+        }
+      });
+
+      // Scroll smoothly to panorama stage
+      document.getElementById('stagePano').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function filterAlbum(cat, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.album-card');
+      cards.forEach(card => {
+        if (cat === 'all' || card.getAttribute('data-category') === cat) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function scrollToAlbum() {
+      document.getElementById('albumSection').scrollIntoView({ behavior: 'smooth' });
     }
   </script>
 </body>
