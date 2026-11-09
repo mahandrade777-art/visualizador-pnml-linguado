@@ -4176,6 +4176,74 @@ Object.defineProperties( THREE.OrbitControls.prototype, {
         pGroup.add(droneMesh);
         raycastMeshes.push(droneMesh);
 
+        // =========================================================
+        // QUADRO FOTOGRÁFICO 3D FLUTUANTE (FOTO REAL VISÍVEL NO AR)
+        // =========================================================
+        const photoBillboard = new THREE.Group();
+        photoBillboard.position.set(0, hZ, 0);
+
+        const isHighAlt = (p.h_voo || 50) > 150;
+        const pWidth = isHighAlt ? 240 : 120;
+        const pHeight = isHighAlt ? 150 : 75;
+
+        // Textura Fotográfica
+        const photoTex = new THREE.TextureLoader().load(p.b64.startsWith('data:') ? p.b64 : 'data:image/jpeg;base64,' + p.b64);
+        const photoGeom = new THREE.PlaneBufferGeometry(pWidth, pHeight);
+        const photoMat = new THREE.MeshBasicMaterial({ 
+          map: photoTex, 
+          side: THREE.DoubleSide 
+        });
+        const photoMesh = new THREE.Mesh(photoGeom, photoMat);
+        photoMesh.userData = p;
+        photoBillboard.add(photoMesh);
+        raycastMeshes.push(photoMesh);
+
+        // Moldura Neon em Volta da Foto
+        const frameGeom = new THREE.EdgesGeometry(new THREE.PlaneBufferGeometry(pWidth + 2, pHeight + 2));
+        const frameMat = new THREE.LineBasicMaterial({ color: 0xc084fc, linewidth: 2 });
+        const frameLine = new THREE.LineSegments(frameGeom, frameMat);
+        photoBillboard.add(frameLine);
+
+        // Badge / Título Flutuante sobre o Quadro
+        const badgeCanvas = document.createElement('canvas');
+        badgeCanvas.width = 512;
+        badgeCanvas.height = 96;
+        const bctx = badgeCanvas.getContext('2d');
+        bctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
+        bctx.beginPath();
+        if (bctx.roundRect) bctx.roundRect(8, 8, 496, 80, 20); else bctx.rect(8, 8, 496, 80);
+        bctx.fill();
+        bctx.lineWidth = 4;
+        bctx.strokeStyle = '#c084fc';
+        bctx.stroke();
+        bctx.fillStyle = '#ffffff';
+        bctx.font = 'bold 30px sans-serif';
+        bctx.textAlign = 'center';
+        bctx.textBaseline = 'middle';
+        const shortName = p.name.includes('—') ? p.name.split('—')[1].trim() : p.name;
+        bctx.fillText('🛸 ' + shortName.substring(0, 25) + ' (' + (p.h_voo || 50).toFixed(0) + 'm)', 256, 48);
+
+        const badgeTex = new THREE.CanvasTexture(badgeCanvas);
+        const badgeMat = new THREE.SpriteMaterial({ map: badgeTex, transparent: true });
+        const badgeSprite = new THREE.Sprite(badgeMat);
+        badgeSprite.position.y = (pHeight / 2) + 16;
+        badgeSprite.scale.set(pWidth * 0.85, (pWidth * 0.85) * (96 / 512), 1);
+        badgeSprite.userData = p;
+        photoBillboard.add(badgeSprite);
+        raycastMeshes.push(badgeSprite);
+
+        // Anel de Alvo Iluminado no Solo
+        const ringGeom = new THREE.RingGeometry(8, 14, 32);
+        const ringMat = new THREE.MeshBasicMaterial({ color: 0xa855f7, side: THREE.DoubleSide, transparent: true, opacity: 0.75 });
+        const groundRing = new THREE.Mesh(ringGeom, ringMat);
+        groundRing.position.y = gZ + 0.5;
+        groundRing.rotation.x = Math.PI / 2;
+        pGroup.add(groundRing);
+
+        pGroup.add(photoBillboard);
+        if (!window.droneBillboards) window.droneBillboards = [];
+        window.droneBillboards.push(photoBillboard);
+
       } else if (p.tipo === 'relive') {
         // Marcador Náutico Relive: Baliza náutica cilíndrica com anel orbital azul marinho
         const beaconGeom = new THREE.CylinderGeometry(4.5, 6.0, 10.0, 24);
@@ -5134,10 +5202,9 @@ Object.defineProperties( THREE.OrbitControls.prototype, {
     function flyToDronePoint(droneId) {
       const pt = fotolivroPoints.find(p => p.id === droneId);
       if (pt) {
-        const targetY = (pt.z_ground || 1) * currentZScale;
-        const camY = targetY + (pt.h_voo ? Math.min(pt.h_voo * 1.5, 350) : 180) * (currentZScale * 0.6);
-        // Position camera slightly offset to look at point
-        flyCamera(pt.x + 150, camY, pt.z + 180, pt.x, targetY + (pt.h_voo ? pt.h_voo * 0.5 : 20), pt.z);
+        const targetY = (pt.z_ground || 1) * currentZScale + (pt.h_voo ? pt.h_voo * currentZScale : 80);
+        const camDistance = (pt.h_voo || 50) > 150 ? 420 : 190;
+        flyCamera(pt.x, targetY + 25, pt.z + camDistance, pt.x, targetY, pt.z);
         openPlotModal(pt);
       }
     }
@@ -5216,6 +5283,11 @@ Object.defineProperties( THREE.OrbitControls.prototype, {
       }
       if (anim360Rings && anim360Rings.length > 0) {
         anim360Rings.forEach(r => { r.rotation.z += 0.02; });
+      }
+      if (window.droneBillboards && window.droneBillboards.length > 0) {
+        window.droneBillboards.forEach(b => {
+          b.quaternion.copy(camera.quaternion);
+        });
       }
       renderer.render(scene, camera);
     }
@@ -5350,5 +5422,87 @@ Object.defineProperties( THREE.OrbitControls.prototype, {
     }
 
   </script>
+
+  <!-- DOCK FLUTUANTE DE FOTOS AÉREAS DE DRONE (ACESSO IMEDIATO) -->
+  <div id="drone-dock" style="position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 1000; display: flex; align-items: center; gap: 8px; background: rgba(15, 23, 42, 0.94); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1.5px solid rgba(168, 85, 247, 0.7); border-radius: 16px; padding: 6px 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); max-width: 96vw; overflow-x: auto;">
+    <div style="display: flex; align-items: center; gap: 6px; padding-right: 8px; border-right: 1px solid rgba(255,255,255,0.18); font-size: 7.2pt; font-weight: 700; color: #d8b4fe; white-space: nowrap;">
+      <span style="font-size: 15pt;">🛸</span>
+      <div>FOTOS RPAS<br><span style="font-size: 6pt; color: #94a3b8; font-weight: 500;">CLIQUE P/ VOAR</span></div>
+    </div>
+    
+    <!-- Cartão 1: Vila Antenor -->
+    <div onclick="flyToDronePoint('Drone-VilaAntenor0124')" title="Vila Antenor (0124) • Altitude: 42 m AGL" style="display: flex; align-items: center; gap: 7px; background: rgba(30, 41, 59, 0.9); border: 1px solid rgba(168, 85, 247, 0.5); border-radius: 10px; padding: 4px 8px; cursor: pointer; transition: all 0.2s; white-space: nowrap;" onmouseover="this.style.borderColor='#38bdf8'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(168, 85, 247, 0.5)'; this.style.transform='translateY(0)'">
+      <div style="width: 44px; height: 32px; border-radius: 6px; overflow: hidden; border: 1px solid #a855f7; flex-shrink: 0; background: #000;">
+        <img id="dock-img-0124" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="0124">
+      </div>
+      <div>
+        <div style="font-size: 7.2pt; font-weight: 700; color: #f8fafc;">🏡 Vila Antenor (0124)</div>
+        <div style="font-size: 6pt; color: #c084fc;">42 m AGL • Mini 3 Pro</div>
+      </div>
+    </div>
+
+    <!-- Cartão 2: Restinga Central -->
+    <div onclick="flyToDronePoint('Drone-RestingaCentral0143')" title="Restinga Central (0143) • Altitude: 53 m AGL" style="display: flex; align-items: center; gap: 7px; background: rgba(30, 41, 59, 0.9); border: 1px solid rgba(168, 85, 247, 0.5); border-radius: 10px; padding: 4px 8px; cursor: pointer; transition: all 0.2s; white-space: nowrap;" onmouseover="this.style.borderColor='#38bdf8'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(168, 85, 247, 0.5)'; this.style.transform='translateY(0)'">
+      <div style="width: 44px; height: 32px; border-radius: 6px; overflow: hidden; border: 1px solid #a855f7; flex-shrink: 0; background: #000;">
+        <img id="dock-img-0143" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="0143">
+      </div>
+      <div>
+        <div style="font-size: 7.2pt; font-weight: 700; color: #f8fafc;">🌳 Restinga (0143)</div>
+        <div style="font-size: 6pt; color: #c084fc;">53 m AGL • Mini 3 Pro</div>
+      </div>
+    </div>
+
+    <!-- Cartão 3: Setor Leste -->
+    <div onclick="flyToDronePoint('Drone-SetorLeste0149')" title="Setor Leste (0149) • Altitude: 53 m AGL" style="display: flex; align-items: center; gap: 7px; background: rgba(30, 41, 59, 0.9); border: 1px solid rgba(168, 85, 247, 0.5); border-radius: 10px; padding: 4px 8px; cursor: pointer; transition: all 0.2s; white-space: nowrap;" onmouseover="this.style.borderColor='#38bdf8'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(168, 85, 247, 0.5)'; this.style.transform='translateY(0)'">
+      <div style="width: 44px; height: 32px; border-radius: 6px; overflow: hidden; border: 1px solid #a855f7; flex-shrink: 0; background: #000;">
+        <img id="dock-img-0149" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="0149">
+      </div>
+      <div>
+        <div style="font-size: 7.2pt; font-weight: 700; color: #f8fafc;">🌊 Setor Leste (0149)</div>
+        <div style="font-size: 6pt; color: #c084fc;">53 m AGL • Mini 3 Pro</div>
+      </div>
+    </div>
+
+    <!-- Cartão 4: Borda Leste Mavic -->
+    <div onclick="flyToDronePoint('Drone-LesteRestinga2026')" title="Borda Leste Restinga (374) • Altitude: 56 m AGL" style="display: flex; align-items: center; gap: 7px; background: rgba(30, 41, 59, 0.9); border: 1px solid rgba(168, 85, 247, 0.5); border-radius: 10px; padding: 4px 8px; cursor: pointer; transition: all 0.2s; white-space: nowrap;" onmouseover="this.style.borderColor='#38bdf8'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(168, 85, 247, 0.5)'; this.style.transform='translateY(0)'">
+      <div style="width: 44px; height: 32px; border-radius: 6px; overflow: hidden; border: 1px solid #a855f7; flex-shrink: 0; background: #000;">
+        <img id="dock-img-374" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="374">
+      </div>
+      <div>
+        <div style="font-size: 7.2pt; font-weight: 700; color: #f8fafc;">🌿 Borda Leste (374)</div>
+        <div style="font-size: 6pt; color: #c084fc;">56 m AGL • Mavic 3</div>
+      </div>
+    </div>
+
+    <!-- Cartão 5: Panorama Sudeste Mavic -->
+    <div onclick="flyToDronePoint('Drone-SudestePanorama2026')" title="Panorama Sudeste (381) • Altitude: 394 m AGL" style="display: flex; align-items: center; gap: 7px; background: rgba(30, 41, 59, 0.9); border: 1px solid rgba(168, 85, 247, 0.5); border-radius: 10px; padding: 4px 8px; cursor: pointer; transition: all 0.2s; white-space: nowrap;" onmouseover="this.style.borderColor='#38bdf8'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(168, 85, 247, 0.5)'; this.style.transform='translateY(0)'">
+      <div style="width: 44px; height: 32px; border-radius: 6px; overflow: hidden; border: 1px solid #a855f7; flex-shrink: 0; background: #000;">
+        <img id="dock-img-381" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="381">
+      </div>
+      <div>
+        <div style="font-size: 7.2pt; font-weight: 700; color: #f8fafc;">🌅 Panorama (381)</div>
+        <div style="font-size: 6pt; color: #c084fc;">394 m AGL • Hasselblad</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Inicializar miniaturas no dock flutuante a partir dos dados Base64
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const p124 = fotolivroPoints.find(p => p.id === 'Drone-VilaAntenor0124');
+        if (p124 && document.getElementById('dock-img-0124')) document.getElementById('dock-img-0124').src = 'data:image/jpeg;base64,' + p124.b64;
+        const p143 = fotolivroPoints.find(p => p.id === 'Drone-RestingaCentral0143');
+        if (p143 && document.getElementById('dock-img-0143')) document.getElementById('dock-img-0143').src = 'data:image/jpeg;base64,' + p143.b64;
+        const p149 = fotolivroPoints.find(p => p.id === 'Drone-SetorLeste0149');
+        if (p149 && document.getElementById('dock-img-0149')) document.getElementById('dock-img-0149').src = 'data:image/jpeg;base64,' + p149.b64;
+        const p374 = fotolivroPoints.find(p => p.id === 'Drone-LesteRestinga2026');
+        if (p374 && document.getElementById('dock-img-374')) document.getElementById('dock-img-374').src = 'data:image/jpeg;base64,' + p374.b64;
+        const p381 = fotolivroPoints.find(p => p.id === 'Drone-SudestePanorama2026');
+        if (p381 && document.getElementById('dock-img-381')) document.getElementById('dock-img-381').src = 'data:image/jpeg;base64,' + p381.b64;
+      }, 300);
+    });
+  </script>
+
 </body>
 </html>
